@@ -3,9 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>NCC Roma Premium - Fabio Cavalieri</title>
+<title>NCC Roma Premium</title>
 
 <style>
+html {
+    scroll-behavior: smooth;
+}
+
 body {
     margin: 0;
     font-family: 'Segoe UI', sans-serif;
@@ -17,33 +21,58 @@ body {
 nav {
     position: fixed;
     width: 100%;
-    background: rgba(0,0,0,0.8);
+    background: rgba(0,0,0,0.7);
     padding: 15px;
     text-align: center;
+    backdrop-filter: blur(10px);
     z-index: 999;
 }
 
 nav a {
     margin: 0 15px;
-    color: #fff;
+    color: white;
     text-decoration: none;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: gold;
 }
 
 /* HERO */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0,0,0,0.7),rgba(0,0,0,0.7)),
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.8)),
     url('https://images.unsplash.com/photo-1549924231-f129b911e442') center/cover;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
+    animation: zoom 15s infinite alternate;
+}
+
+@keyframes zoom {
+    from { background-size: 100%; }
+    to { background-size: 110%; }
 }
 
 .hero h1 {
-    font-size: 50px;
+    font-size: 55px;
+    margin-bottom: 20px;
+    animation: fadeUp 1s ease;
 }
 
+.hero p {
+    margin-bottom: 25px;
+    animation: fadeUp 1.5s ease;
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* BUTTON */
 .btn {
     padding: 15px 30px;
     background: gold;
@@ -51,6 +80,12 @@ nav a {
     border-radius: 30px;
     text-decoration: none;
     font-weight: bold;
+    box-shadow: 0 0 20px rgba(255,215,0,0.4);
+    transition: 0.3s;
+}
+
+.btn:hover {
+    transform: scale(1.05);
 }
 
 /* SECTION */
@@ -59,7 +94,7 @@ section {
     text-align: center;
 }
 
-/* SERVIZI */
+/* SERVICES */
 .services {
     display: flex;
     flex-wrap: wrap;
@@ -73,11 +108,11 @@ section {
     border-radius: 15px;
     width: 280px;
     border: 1px solid #333;
-    transition: 0.3s;
+    transition: 0.4s;
 }
 
 .service:hover {
-    transform: translateY(-10px);
+    transform: translateY(-10px) scale(1.03);
     border-color: gold;
 }
 
@@ -100,12 +135,29 @@ button {
     background: gold;
     color: black;
     font-weight: bold;
+    transition: 0.3s;
+}
+
+button:hover {
+    transform: scale(1.05);
 }
 
 /* FOOTER */
 footer {
     background: black;
     padding: 20px;
+}
+
+/* SCROLL ANIMATION */
+.hidden {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 1s ease;
+}
+
+.show {
+    opacity: 1;
+    transform: translateY(0);
 }
 </style>
 </head>
@@ -126,7 +178,7 @@ footer {
     </div>
 </div>
 
-<section id="servizi">
+<section class="hidden" id="servizi">
     <h2>Servizi Premium</h2>
 
     <div class="services">
@@ -136,7 +188,7 @@ footer {
     </div>
 </section>
 
-<section>
+<section class="hidden">
     <h2>💰 Calcola il prezzo</h2>
 
     <select id="tratta">
@@ -148,7 +200,7 @@ footer {
     <p id="prezzo"></p>
 </section>
 
-<section id="prenota">
+<section class="hidden" id="prenota">
     <h2>Prenota il tuo servizio</h2>
 
     <form action="https://formsubmit.co/d269fccd49716a87c1022551ad1ce9c0" method="POST">
@@ -182,15 +234,28 @@ footer {
 </a>
 
 <script>
+// PREZZO
 document.getElementById("tratta").addEventListener("change", function() {
     document.getElementById("prezzo").innerText =
         this.value ? "Prezzo: €" + this.value : "";
 });
 
+// DATA ORA
 setInterval(() => {
     document.getElementById("datetime").innerText =
         new Date().toLocaleString("it-IT");
 }, 1000);
+
+// SCROLL ANIMATION
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if(entry.isIntersecting){
+            entry.target.classList.add("show");
+        }
+    });
+});
+
+document.querySelectorAll('.hidden').forEach(el => observer.observe(el));
 </script>
 
 </body>
