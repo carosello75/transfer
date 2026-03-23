@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Transfer NCC Roma - Servizi Professionali</title>
+<title>Transfer NCC Roma - Fabio Cavalieri</title>
 
 <style>
 body {
     margin: 0;
-    font-family: 'Segoe UI', sans-serif;
+    font-family: Arial, sans-serif;
     background: #0f172a;
     color: white;
 }
@@ -16,36 +16,20 @@ body {
 header {
     padding: 80px 20px;
     text-align: center;
-    background: linear-gradient(135deg,#0f172a,#1e293b);
-}
-
-h1 {
-    font-size: 40px;
-    margin-bottom: 10px;
-}
-
-p {
-    opacity: 0.8;
 }
 
 .btn {
     display: inline-block;
-    margin-top: 20px;
-    padding: 15px 30px;
+    margin-top: 15px;
+    padding: 12px 25px;
     background: #22c55e;
     color: white;
-    border-radius: 50px;
+    border-radius: 30px;
     text-decoration: none;
-    font-weight: bold;
-    transition: 0.3s;
-}
-
-.btn:hover {
-    background: #16a34a;
 }
 
 section {
-    padding: 60px 20px;
+    padding: 50px 20px;
     text-align: center;
 }
 
@@ -58,21 +42,36 @@ section {
 
 .card {
     background: #1e293b;
-    padding: 30px;
-    border-radius: 20px;
-    width: 280px;
-    transition: 0.3s;
+    padding: 20px;
+    border-radius: 15px;
+    width: 260px;
 }
 
-.card:hover {
-    transform: translateY(-10px);
+form {
+    max-width: 500px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input, button {
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+}
+
+button {
+    background: #22c55e;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 footer {
     background: #020617;
     padding: 20px;
     text-align: center;
-    margin-top: 50px;
 }
 </style>
 </head>
@@ -81,67 +80,64 @@ footer {
 
 <header>
     <h1>🚗 Transfer NCC Roma</h1>
-    <p>Servizi professionali di trasporto per aeroporti, crociere e viaggi su misura</p>
+    <p>Servizi professionali di trasporto</p>
 
-    <a class="btn" href="https://wa.me/393895009266" target="_blank">
-        📲 Prenota su WhatsApp
+    <a class="btn" href="https://wa.me/393895009266?text=Ciao%20sono%20interessato%20al%20servizio%20NCC" target="_blank">
+        📲 WhatsApp
     </a>
+
+    <p>📧 Email: fabio.cavalieri@libero.it</p>
 </header>
 
 <section>
     <h2>I Nostri Servizi</h2>
 
     <div class="cards">
-        <div class="card">
-            <h3>✈️ Aeroporti</h3>
-            <p>Transfer da e per Fiumicino e Ciampino con puntualità e comfort.</p>
-        </div>
-
-        <div class="card">
-            <h3>🚢 Crociere</h3>
-            <p>Servizio dedicato per il porto di Civitavecchia con assistenza completa.</p>
-        </div>
-
-        <div class="card">
-            <h3>👨‍👩‍👧‍👦 Gruppi</h3>
-            <p>Noleggio con conducente fino a 9 posti per viaggi e escursioni.</p>
-        </div>
+        <div class="card">✈️ Aeroporti</div>
+        <div class="card">🚢 Crociere</div>
+        <div class="card">👨‍👩‍👧‍👦 Gruppi</div>
     </div>
 </section>
 
 <section>
-    <h2>Perché scegliere noi</h2>
+    <h2>📩 Richiedi Prenotazione</h2>
 
-    <div class="cards">
-        <div class="card">
-            <h3>✔️ Puntualità</h3>
-            <p>Arriviamo sempre in orario per garantirti un viaggio senza stress.</p>
-        </div>
+    <form action="https://formsubmit.co/fabio.cavalieri@libero.it" method="POST">
+        
+        <input type="text" name="nome" placeholder="Nome" required>
+        <input type="text" name="cognome" placeholder="Cognome" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="telefono" placeholder="Telefono / Cellulare" required>
 
-        <div class="card">
-            <h3>✔️ Comfort</h3>
-            <p>Veicoli moderni, puliti e climatizzati per ogni esigenza.</p>
-        </div>
+        <input type="date" name="data" required>
+        <input type="time" name="ora" required>
 
-        <div class="card">
-            <h3>✔️ Professionalità</h3>
-            <p>Autisti esperti e servizio clienti sempre disponibile.</p>
-        </div>
-    </div>
-</section>
+        <!-- evita captcha -->
+        <input type="hidden" name="_captcha" value="false">
 
-<section>
-    <h2>Contattaci Ora</h2>
-    <p>Richiedi un preventivo gratuito o prenota il tuo viaggio in pochi secondi</p>
+        <!-- redirect dopo invio -->
+        <input type="hidden" name="_next" value="https://carosello75.github.io/Sito-web-prova/">
 
-    <a class="btn" href="https://wa.me/393895009266" target="_blank">
-        💬 Contatta su WhatsApp
-    </a>
+        <button type="submit">Invia richiesta</button>
+    </form>
+
 </section>
 
 <footer>
-    <p>© 2026 Fabio Cavalieri - Servizi NCC Roma</p>
+    <p id="datetime"></p>
+    <p>© 2026 Fabio Cavalieri - fabio.cavalieri@libero.it</p>
 </footer>
+
+<script>
+function aggiornaDataOra() {
+    const now = new Date();
+    const testo = now.toLocaleString("it-IT");
+    document.getElementById("datetime").innerText = "Data e ora: " + testo;
+}
+
+aggiornaDataOra();
+setInterval(aggiornaDataOra, 1000);
+</script>
 
 </body>
 </html>
