@@ -18,6 +18,8 @@ header {
     text-align: center;
 }
 
+h1 { font-size: 38px; }
+
 .btn {
     display: inline-block;
     margin-top: 15px;
@@ -55,7 +57,7 @@ form {
     gap: 10px;
 }
 
-input, button {
+input, select, button {
     padding: 12px;
     border-radius: 10px;
     border: none;
@@ -80,30 +82,62 @@ footer {
 
 <header>
     <h1>🚗 Transfer NCC Roma</h1>
-    <p>Servizi professionali di trasporto</p>
+    <p>Servizi professionali per aeroporti, crociere e viaggi su misura</p>
 
-    <a class="btn" href="https://wa.me/393895009266?text=Ciao%20sono%20interessato%20al%20servizio%20NCC" target="_blank">
+    <a class="btn" href="https://wa.me/393895009266?text=Ciao%20vorrei%20prenotare%20un%20transfer" target="_blank">
         📲 WhatsApp
     </a>
 
-    <p>📧 Email: fabio.cavalieri@libero.it</p>
+    <p>📧 fabio.cavalieri@libero.it</p>
 </header>
 
 <section>
     <h2>I Nostri Servizi</h2>
 
     <div class="cards">
-        <div class="card">✈️ Aeroporti</div>
-        <div class="card">🚢 Crociere</div>
-        <div class="card">👨‍👩‍👧‍👦 Gruppi</div>
+        <div class="card">✈️ Transfer Aeroporti</div>
+        <div class="card">🚢 Porto Civitavecchia</div>
+        <div class="card">👨‍👩‍👧‍👦 Viaggi di gruppo</div>
     </div>
 </section>
 
 <section>
-    <h2>📩 Richiedi Prenotazione</h2>
+    <h2>🚘 Servizio Premium</h2>
+    <p>Auto eleganti, autisti professionisti e massimo comfort.</p>
+</section>
+
+<section>
+    <h2>💰 Calcola il tuo preventivo</h2>
+
+    <select id="tratta">
+        <option value="">Seleziona tratta</option>
+        <option value="50">Roma → Fiumicino (€50)</option>
+        <option value="60">Roma → Civitavecchia (€60)</option>
+        <option value="40">Roma → Ciampino (€40)</option>
+    </select>
+
+    <p id="prezzo"></p>
+</section>
+
+<section>
+    <h2>Transfer NCC Roma e Civitavecchia</h2>
+    <p>
+    Servizio di noleggio con conducente a Roma per aeroporti, crociere e viaggi privati.
+    Disponibile 24/7 con puntualità e sicurezza.
+    </p>
+</section>
+
+<section>
+    <h2>📍 Dove operiamo</h2>
+    <iframe src="https://maps.google.com/maps?q=roma&t=&z=13&ie=UTF8&iwloc=&output=embed"
+        width="100%" height="300" style="border:0;"></iframe>
+</section>
+
+<section>
+    <h2>📩 Prenota Ora</h2>
 
     <form action="https://formsubmit.co/fabio.cavalieri@libero.it" method="POST">
-        
+
         <input type="text" name="nome" placeholder="Nome" required>
         <input type="text" name="cognome" placeholder="Cognome" required>
         <input type="email" name="email" placeholder="Email" required>
@@ -112,10 +146,7 @@ footer {
         <input type="date" name="data" required>
         <input type="time" name="ora" required>
 
-        <!-- evita captcha -->
         <input type="hidden" name="_captcha" value="false">
-
-        <!-- redirect dopo invio -->
         <input type="hidden" name="_next" value="https://carosello75.github.io/Sito-web-prova/">
 
         <button type="submit">Invia richiesta</button>
@@ -128,13 +159,24 @@ footer {
     <p>© 2026 Fabio Cavalieri - fabio.cavalieri@libero.it</p>
 </footer>
 
+<!-- WhatsApp fisso -->
+<a href="https://wa.me/393895009266?text=Ciao%20vorrei%20prenotare%20un%20transfer" 
+   style="position:fixed; bottom:20px; right:20px; background:#25D366; color:white; 
+   padding:15px 20px; border-radius:50px; text-decoration:none; font-weight:bold; z-index:999;">
+   💬 WhatsApp
+</a>
+
 <script>
+document.getElementById("tratta").addEventListener("change", function() {
+    let prezzo = this.value;
+    document.getElementById("prezzo").innerText = prezzo ? "Prezzo: €" + prezzo : "";
+});
+
 function aggiornaDataOra() {
     const now = new Date();
-    const testo = now.toLocaleString("it-IT");
-    document.getElementById("datetime").innerText = "Data e ora: " + testo;
+    document.getElementById("datetime").innerText =
+        "Data e ora: " + now.toLocaleString("it-IT");
 }
-
 aggiornaDataOra();
 setInterval(aggiornaDataOra, 1000);
 </script>
